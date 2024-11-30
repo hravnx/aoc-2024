@@ -1,0 +1,3 @@
+# Advent of Code 2024
+
+Trying out Gleam this year, let's see how far I get ...
