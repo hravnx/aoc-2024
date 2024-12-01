@@ -9,4 +9,4 @@ echo "Get the input data from $DAY"
 SESSION=`cat .env`
 
 
-curl https://adventofcode.com/2024/day/$DAY/input --cookie "session=$SESSION"
+curl https://adventofcode.com/2024/day/$1/input --output input/day-$DAY.txt --cookie "session=$SESSION"
