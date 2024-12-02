@@ -5,7 +5,10 @@ import gleam/list
 import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
+import helpers.{is_not_empty}
 import simplifile
+
+// --------------------------------------------------------------------------
 
 fn split_and_parse(line: String) -> Result(#(Int, Int), String) {
   case string.split(line, "   ") {
@@ -18,7 +21,16 @@ fn split_and_parse(line: String) -> Result(#(Int, Int), String) {
   }
 }
 
-fn day_01_part1(left: List(Int), right: List(Int)) -> Int {
+fn read_input() -> Result(List(#(Int, Int)), String) {
+  simplifile.read("../input/day-01.txt")
+  |> result.unwrap(or: "")
+  |> string.split(on: "\n")
+  |> list.filter(keeping: is_not_empty)
+  |> list.map(with: split_and_parse)
+  |> result.all
+}
+
+pub fn day_01_part1(left: List(Int), right: List(Int)) -> Int {
   let left_s = left |> list.sort(by: int.compare)
   let right_s = right |> list.sort(by: int.compare)
   list.zip(left_s, right_s)
@@ -29,7 +41,7 @@ fn day_01_part1(left: List(Int), right: List(Int)) -> Int {
   |> list.fold(from: 0, with: int.add)
 }
 
-fn day_01_part2(left: List(Int), right: List(Int)) -> Int {
+pub fn day_01_part2(left: List(Int), right: List(Int)) -> Int {
   let right_count =
     right
     |> list.fold(from: dict.new(), with: fn(acc, x) {
@@ -49,19 +61,8 @@ fn day_01_part2(left: List(Int), right: List(Int)) -> Int {
   })
 }
 
-fn is_not_empty(line: String) -> Bool {
-  line |> string.trim != ""
-}
-
-pub fn main() -> Int {
-  let values_maybe =
-    simplifile.read("../input/day-01.txt")
-    |> result.unwrap(or: "")
-    |> string.split(on: "\n")
-    |> list.filter(keeping: is_not_empty)
-    |> list.map(with: split_and_parse)
-    |> result.all
-
+pub fn main() {
+  let values_maybe = read_input()
   case values_maybe {
     Ok(values) -> {
       let #(left, right) =
