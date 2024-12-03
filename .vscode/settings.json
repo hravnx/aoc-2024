@@ -1,7 +1,9 @@
 {
   "cSpell.words": [
+    "Dont",
     "println",
-    "simplifile"
+    "simplifile",
+    "submatches"
   ],
   "cSpell.ignorePaths": [
     "package-lock.json",

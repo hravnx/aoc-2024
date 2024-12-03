@@ -6,4 +6,5 @@ build/
 erl_crash.dump
 /py
 /input
+.DS_Store
 
